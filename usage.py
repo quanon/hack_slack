@@ -16,7 +16,7 @@ class Usage:
     self.size += size
 
   def humanized_size(self):
-    return humanize.naturalsize(usage.size)
+    return humanize.naturalsize(self.size)
 
 
 if __name__ == '__main__':
