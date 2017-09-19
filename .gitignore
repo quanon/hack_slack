@@ -1,17 +1,17 @@
-**.DS_store
 __pycache__
 .python-version
+*.png
+**.DS_store
 config.json
 
-# Virtualenv
-# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+# virtualenv
 .Python
+.venv
 [Bb]in
 [Ii]nclude
 [Ll]ib
 [Ll]ib64
 [Ll]ocal
 [Ss]cripts
-pyvenv.cfg
-.venv
 pip-selfcheck.json
+pyvenv.cfg

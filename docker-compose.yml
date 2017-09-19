@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  usage:
+    build: .
+    environment:
+      MPLCONFIGDIR: /root/.matplotlibrc
+    volumes:
+      - .:/opt/data-volume
+    working_dir: /opt/data-volume
+    entrypoint:
+      - python
+      - /opt/hack_slack/usage.py
+    command:
+      - --format
+      - table

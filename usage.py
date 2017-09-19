@@ -1,8 +1,19 @@
+from argparse import ArgumentParser
+from client import create_slack_client
+from matplotlib import pyplot as plt
 from operator import attrgetter
 from prettytable import PrettyTable
 import humanize
 import itertools
-from client import create_slack_client
+
+parser = ArgumentParser()
+parser.add_argument('--format')
+args = parser.parse_args()
+
+if args.format:
+  format = args.format
+else:
+  format = 'table'
 
 
 class Usage:
@@ -41,10 +52,22 @@ if __name__ == '__main__':
 
   usage_list.sort(key=attrgetter('size'), reverse=True)
 
-  table = PrettyTable(['username', 'usage', 'count'])
-  table.align = 'r'
+  if format == 'graph':
+    x = list(range(1, len(usage_list) + 1))
+    labels = [u.name for u in usage_list]
+    y = [round(u.size / 1024) for u in usage_list]
+    plt.figure(figsize=(16, 8))
+    plt.bar(x, y, align='center')
+    plt.xticks(x, labels, rotation='vertical')
+    plt.xlabel('user')
+    plt.ylabel('usage (KB)')
+    plt.tight_layout()
+    plt.savefig('usage.png')
+  else:
+    table = PrettyTable(['username', 'usage', 'count'])
+    table.align = 'r'
 
-  for usage in usage_list:
-    table.add_row([usage.name, usage.humanized_size(), usage.count])
+    for usage in usage_list:
+      table.add_row([usage.name, usage.humanized_size(), usage.count])
 
-  print(table)
+    print(table)
